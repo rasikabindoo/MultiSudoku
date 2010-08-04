@@ -1,9 +1,10 @@
 /* Grid created on 30.01.2006 */
 package net.sourceforge.starsudoku;
 
+import java.io.Serializable;
 import java.util.Observable;
 
-public class Grid extends Observable{
+public class Grid extends Observable implements Serializable{
 
     private int[][] fields;
     private boolean[][] fieldsDefault;

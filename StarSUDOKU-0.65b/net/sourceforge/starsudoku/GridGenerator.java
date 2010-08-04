@@ -2,13 +2,15 @@
 package net.sourceforge.starsudoku;
 
 
+import java.io.Serializable;
 import java.util.EmptyStackException;
 import java.util.Random;
 import java.util.Stack;
 
 import net.sourceforge.starsudoku.GV.NumDistributuon;
 
-public class GridGenerator {
+public class GridGenerator implements Serializable
+{
 
     private Grid grid;
     private Stack st;
@@ -146,6 +148,18 @@ public class GridGenerator {
         } 
         return true;
     }
+    
+    
+    
+    //--------------------------------------
+    public boolean isGridValidGG()
+    {
+    	boolean b = grid.isGridSolved();
+    	return b;
+    }
+    //----------------------------------------
+    
+    
     
     //DEBUG
     private void printArray(int[] a, String name) {

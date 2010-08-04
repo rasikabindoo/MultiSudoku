@@ -1,7 +1,9 @@
 /* Move created on 30.01.2006 */
 package net.sourceforge.starsudoku;
 
-public class Move {
+import java.io.Serializable;
+
+public class Move implements Serializable {
     
     private int y;
     private int x;
