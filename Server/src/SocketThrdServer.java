@@ -97,7 +97,7 @@ class ClientWorker implements Runnable
 			System.out.println("Exception in run thing" + e);
 		}  
 		
-			boolean clientSignal = false;
+			boolean clientSignal = true;
 			while(clientSignal)
 	//	while(false)
 		{
@@ -266,6 +266,6 @@ public class SocketThrdServer extends JFrame
 //--------------------------------------------------------------------------------------------
 
 
-
+//************************************************************************************************
 
 
