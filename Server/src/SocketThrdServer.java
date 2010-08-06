@@ -286,6 +286,6 @@ public class SocketThrdServer extends JFrame
         	System.out.println("End printf for the mad repo");
   	}	
 }
-//*************************************************************************8
+
 
 

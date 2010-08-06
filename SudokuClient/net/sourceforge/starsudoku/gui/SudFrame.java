@@ -908,7 +908,7 @@ public class SudFrame extends JFrame implements Observer {
 					// doSolve();
 					// -----------------------------------------------
 					System.out.println("Button is clicked");
-			/*		boolean b = checkIfSolved();
+					boolean b = checkIfSolved();
 					
 					System.out.println(b);
 					// if(!checkIfSolved())
@@ -919,8 +919,8 @@ public class SudFrame extends JFrame implements Observer {
 					} else {
 						doSolved();
 					}
-					// */
-					 doSolved();
+					
+					// doSolved();
 
 					// -----------------------------------------------
 				} else if (tmp == bUp[9]) {
@@ -990,7 +990,9 @@ public class SudFrame extends JFrame implements Observer {
 				JMenuItem tmp = (JMenuItem) e.getSource();
 
 				if (tmp == sudNew) {
+				//	generateNewSud();
 					generateNewSud();
+					tmp.setEnabled(false);
 				} else if (tmp == sudOpen) {
 					doLoad();
 				} else if (tmp == sudSaveAs) {
@@ -1014,7 +1016,21 @@ public class SudFrame extends JFrame implements Observer {
 				} else if (tmp == sudExit) {
 					doExit();
 				} else if (tmp == sudSolve) {
-					doSolve();
+					
+					//doSolve();
+					boolean b = checkIfSolved();
+					System.out.println(b);
+					// if(!checkIfSolved())
+
+					if (!checkIfSolved()) {
+						System.out.println("Inside if");
+						doNotSolved();
+						
+					} else {
+						doSolved();
+					}
+					
+					
 				} else if (tmp == sudCreate) {
 					doCreate();
 				} else if (tmp == sudClear) {
