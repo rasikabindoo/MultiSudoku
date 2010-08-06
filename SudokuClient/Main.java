@@ -1,9 +1,9 @@
-/* Main created on 10.07.2006 */
+
 //import javax.swing.JFrame;
 //import javax.swing.JOptionPane;
 //import javax.swing.UIManager;
 
-import net.sourceforge.starsudoku.gui.SudFrame;
+import net.gitHub.MultiSudoku.gui.SudFrame;
 
 
 public class Main {
@@ -22,3 +22,4 @@ public class Main {
         SudFrame f = new SudFrame();
     }
 }
+//*******************

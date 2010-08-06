@@ -1,3 +1,10 @@
+
+/**
+ *
+ * 
+ * @author Rasika Bindoo
+ */
+
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.event.*;
@@ -14,34 +21,25 @@ class ClientWorker implements Runnable
 {
 	
 	private Socket client;
-	private JTextArea textArea;
-	
 	private ObjectInputStream ois = null;
 	private ObjectOutputStream oos = null;
-	
 	public int [][] gridd;
 	public boolean[][] fieldsDefault;
-	
 	GridGenerator gg;
-	ClientWorker(Socket client, JTextArea textArea,GridGenerator gg) 
-	{
-		
+	
+	ClientWorker(Socket client, GridGenerator gg) 
+	{	
 	    try
-	    {
-	    	
+	    {   	
 	    	this.client = client;
 	    	this.gg = gg;
-	    	
-	    	//--------------------
-	    	
+	    
 	    	gridd = new int[9][9];
 	    	gridd = gg.getGrid().getFields();
 	    	
 	    	fieldsDefault = new boolean[9][9];
 	    	fieldsDefault = gg.getGrid().getfieldsDefault();
-	        
-	    	//---------------------
-	    	
+	        	    	
 	    	System.out.println("Connected to" + client.getInetAddress() + " on port " + client.getPort() + "from port " + client.getLocalPort() + " of " +  client.getLocalAddress());
 	    	SocketThrdServer.arrayClientSockets[SocketThrdServer.index] = client;
 	    	SocketThrdServer.index = SocketThrdServer.index + 1;
@@ -69,7 +67,6 @@ class ClientWorker implements Runnable
 	         }
 	         return;
 	     }
-	    //this.start(gg);
 	}
 
 	public void run()	
@@ -80,9 +77,7 @@ class ClientWorker implements Runnable
 		
 		try 
 		{
-			//oos.writeObject(new Date());
 			System.out.println("Before Writing the object");
-			//oos.writeObject(gg.getGrid());
 			oos.writeObject(gridd);
 			oos.writeObject(fieldsDefault);
 			System.out.println("After Writing the object");
@@ -90,7 +85,7 @@ class ClientWorker implements Runnable
 			// close streams and connections
 		//	ois.close();
 		//	oos.close();
-		//	client.close(); 
+ 
 		}
 		
 		
@@ -99,16 +94,15 @@ class ClientWorker implements Runnable
 			System.out.println("Exception in run thing" + e);
 		}  
 		try
-		{
-		//	out = new PrintWriter(socket.getOutputStream(), true);
-			
-			in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-			
+		{	
+			in = new BufferedReader(new InputStreamReader(client.getInputStream()));	
 		} 
+		
 		catch (UnknownHostException e) {
 			System.out.println("Unknown host: kq6py.eng");
 			System.exit(1);
-		} 
+		}
+		
 		catch (IOException e) {
 			System.out.println("No I/O   : "+e);
 			System.exit(1);
@@ -116,7 +110,6 @@ class ClientWorker implements Runnable
 		System.out.println("Before Client Signal");
 		boolean clientSignal = true;
 		while(clientSignal)
-	//	while(false)
 		{
 			try
 			{
@@ -143,12 +136,6 @@ class ClientWorker implements Runnable
 					}
 					
 				}
-				
-				
-				//Send data back to client
-			//	sleep(100);
-			//	out.println(line);
-			//	textArea.append(line);
 			}
 			catch (IOException e) 
 			{
@@ -241,7 +228,7 @@ public class SocketThrdServer extends JFrame
 			try
 			{
 			//	System.out.println("Inside WHILE");
-				w = new ClientWorker(server.accept(), textArea, gg);
+				w = new ClientWorker(server.accept(), gg);
 				Thread t = new Thread(w);
 				t.start();
 			}
@@ -288,4 +275,4 @@ public class SocketThrdServer extends JFrame
 }
 
 
-
+//**************************
