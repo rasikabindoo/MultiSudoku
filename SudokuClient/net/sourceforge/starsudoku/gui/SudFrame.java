@@ -908,7 +908,8 @@ public class SudFrame extends JFrame implements Observer {
 					// doSolve();
 					// -----------------------------------------------
 					System.out.println("Button is clicked");
-					boolean b = checkIfSolved();
+			/*		boolean b = checkIfSolved();
+					
 					System.out.println(b);
 					// if(!checkIfSolved())
 
@@ -919,7 +920,7 @@ public class SudFrame extends JFrame implements Observer {
 						doSolved();
 					}
 					// */
-					// doSolved();
+					 doSolved();
 
 					// -----------------------------------------------
 				} else if (tmp == bUp[9]) {
@@ -1039,6 +1040,3 @@ public class SudFrame extends JFrame implements Observer {
 		}
 	}
 }
-
-//*********************************************************************
-//*********************************************************************

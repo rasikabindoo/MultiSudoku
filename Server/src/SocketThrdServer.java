@@ -148,7 +148,7 @@ class ClientWorker implements Runnable
 				//Send data back to client
 			//	sleep(100);
 			//	out.println(line);
-				textArea.append(line);
+			//	textArea.append(line);
 			}
 			catch (IOException e) 
 			{
