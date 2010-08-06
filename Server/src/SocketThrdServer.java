@@ -129,6 +129,7 @@ class ClientWorker implements Runnable
 					System.out.println("******* String line :  " + line);
 					for(int i=0; i<10; i++)
 					{
+						System.out.println("I is " + i);
 						if(SocketThrdServer.arrayClientSockets[i]!=null && (SocketThrdServer.arrayClientSockets[i] != client ))
 						//if(SocketThrdServer.arrayClientSockets[i] != client )
 						{
@@ -142,6 +143,8 @@ class ClientWorker implements Runnable
 					}
 					
 				}
+				
+				
 				//Send data back to client
 			//	sleep(100);
 			//	out.println(line);
@@ -154,6 +157,8 @@ class ClientWorker implements Runnable
 				System.exit(-1);
 			}
     	}
+		System.out.println("------------After while--------------- " );
+		
 	}
 }
 
@@ -278,13 +283,9 @@ public class SocketThrdServer extends JFrame
         	frame.pack();
         	frame.setVisible(true);
         	frame.listenSocket();
+        	System.out.println("End printf for the mad repo");
   	}	
 }
-
-
-//--------------------------------------------------------------------------------------------
-
-
-//************************************************************************************************
+//*************************************************************************8
 
 
