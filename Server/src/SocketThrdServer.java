@@ -88,26 +88,45 @@ class ClientWorker implements Runnable
 			System.out.println("After Writing the object");
 			oos.flush();
 			// close streams and connections
-			ois.close();
-			oos.close();
+		//	ois.close();
+		//	oos.close();
 		//	client.close(); 
 		}
+		
+		
 		catch(Exception e) 
 		{
 			System.out.println("Exception in run thing" + e);
 		}  
-		
-			boolean clientSignal = true;
-			while(clientSignal)
+		try
+		{
+		//	out = new PrintWriter(socket.getOutputStream(), true);
+			
+			in = new BufferedReader(new InputStreamReader(client.getInputStream()));
+			
+		} 
+		catch (UnknownHostException e) {
+			System.out.println("Unknown host: kq6py.eng");
+			System.exit(1);
+		} 
+		catch (IOException e) {
+			System.out.println("No I/O   : "+e);
+			System.exit(1);
+		}
+		System.out.println("Before Client Signal");
+		boolean clientSignal = true;
+		while(clientSignal)
 	//	while(false)
 		{
 			try
 			{
 				System.out.println(client.getPort());
 				line = in.readLine();
-				if(line.length()>0)
+				System.out.println("*************After Readline******************");
+				if(line!= null)
 				{
 					clientSignal= false;
+					System.out.println("******* String line :  " + line);
 					for(int i=0; i<10; i++)
 					{
 						if(SocketThrdServer.arrayClientSockets[i]!=null && (SocketThrdServer.arrayClientSockets[i] != client ))

@@ -245,8 +245,16 @@ public class SudFrame extends JFrame implements Observer {
 			try 
 			{
 				String line = in.readLine();
-				System.out.println("Line is  :  "+ line);
-				if (line.length() > 0) {
+				/*System.out.println("Line is  :  "+ line);
+				System.out
+				.println("Connected to" + socket.getInetAddress()
+						+ " on port " + socket.getPort() + "from port "
+						+ socket.getLocalPort() + " of "
+						+ socket.getLocalAddress());
+						*/
+				//if (line.length() > 0) 
+				if (line != null)
+				{
 					System.out.println("Someone else won!!!");
 					doOtherPersonWon();
 					i = 0;
@@ -1031,3 +1039,6 @@ public class SudFrame extends JFrame implements Observer {
 		}
 	}
 }
+
+//*********************************************************************
+//*********************************************************************
