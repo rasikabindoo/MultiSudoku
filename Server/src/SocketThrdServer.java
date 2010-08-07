@@ -113,9 +113,9 @@ class ClientWorker implements Runnable
 		{
 			try
 			{
-				System.out.println(client.getPort());
+				
 				line = in.readLine();
-				System.out.println("*************After Readline******************");
+				
 				if(line!= null)
 				{
 					clientSignal= false;

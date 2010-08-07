@@ -123,7 +123,8 @@ public class SudFrame extends JFrame implements Observer {
 
 	private int diff;
 	private NumDistributuon nD;
-
+	String serverIPAdd;
+	
 	public SudFrame() {
 		super(GV.NAME + GV.VERSION);
 
@@ -150,7 +151,7 @@ public class SudFrame extends JFrame implements Observer {
 		setLocation(50, 50);
 		setVisible(true);
 		addWindowListener(wH);
-
+		getServerAddress();
 		gg = new GridGenerator();
 		diff = GV.DIFF_NORMAL;
 		nD = NumDistributuon.evenlyFilled3x3Cubes;
@@ -172,57 +173,55 @@ public class SudFrame extends JFrame implements Observer {
 		Date date = null;
 		int[][] gridd = new int[9][9];
 		boolean [][]fieldsDefault = new boolean [9][9];
+		boolean flag = true;
+		do
+		{	
+			try 
+			{
+				socket = new Socket(serverIPAdd, 12340);
+				flag = false;
+				System.out
+				.println("Connected to" + socket.getInetAddress()
+						+ " on port " + socket.getPort() + "from port "
+						+ socket.getLocalPort() + " of "
+						+ socket.getLocalAddress());
+				
+				oos = new ObjectOutputStream(socket.getOutputStream());
+				ois = new ObjectInputStream(socket.getInputStream());
+				// read an object from the server
+				// System.out.println("Before reading the object");
+				// date = (Date) ois.readObject();
+				
 
-		try 
-		{
-			socket = new Socket("localhost", 12340);
-			System.out
-			.println("Connected to" + socket.getInetAddress()
-					+ " on port " + socket.getPort() + "from port "
-					+ socket.getLocalPort() + " of "
-					+ socket.getLocalAddress());
+				System.out.println("Before reading the object");
 
-			oos = new ObjectOutputStream(socket.getOutputStream());
-			ois = new ObjectInputStream(socket.getInputStream());
-			// read an object from the server
-			// System.out.println("Before reading the object");
-			// date = (Date) ois.readObject();
-
-
-			System.out.println("Before reading the object");
-
-			gridd = (int[][]) ois.readObject();
-			fieldsDefault = (boolean[][]) ois.readObject();
-			System.out.println("After reading the object");
-
-			for(int i=0; i<9; i++){
-				for(int j=0;j<9;j++){
-					System.out.println(gridd[i][j] + " |");
-				}
-				System.out.println("\n");
+				gridd = (int[][]) ois.readObject();
+				fieldsDefault = (boolean[][]) ois.readObject();
+				System.out.println("After reading the object");
+				gg.getGrid().resetGrid();
+				gg.getGrid().setFieldss(gridd);
+				// System.out.print("The date is: " + date);
+				System.out.println("Blah Blah");
+				
+				//	oos.close();
+				//	ois.close();
 			}
-			for(int i=0; i<9; i++){
-				for(int j=0;j<9;j++){
-					System.out.println("**************************"+ fieldsDefault[i][j] + " |");
-				}
-				System.out.println("\n");
+			catch(Exception e) 
+			{
+				System.out.println("*************************************");
+				//flag= false;
+				doWrongIPAdd();
+				getServerAddress();
+			
 			}
-
-
-			gg.getGrid().resetGrid();
-			gg.getGrid().setFieldss(gridd);
-			// System.out.print("The date is: " + date);
-			System.out.println("Blah Blah");
-
-		//	oos.close();
-		//	ois.close();
-		}
-		catch(Exception e) 
-		{
-			System.out.println(e);
-		}
-
+		
 		// ----------------------------------------------------------------------------------------------------------------
+		
+		}
+		while(flag==true);
+		
+		
+		
 		try
 		{
 			out = new PrintWriter(socket.getOutputStream(), true);
@@ -763,6 +762,23 @@ public class SudFrame extends JFrame implements Observer {
 		sGrid.repaint();
 	}
 
+	private void getServerAddress() {
+		serverIPAdd = JOptionPane.showInputDialog(this, "Enter the Server Addresss", "Success",
+				JOptionPane.INFORMATION_MESSAGE);
+	//	setGridToFinished();
+		sGrid.repaint();
+		System.out.println(serverIPAdd);
+		// --------------------------------
+
+		// Send data over socket
+	//	String text = "ClientWon";
+		//out.println(text);
+		// textField.setText(new String(""));
+
+		// ----------------------------------
+	}
+	
+	
 	private void doSolved() {
 		JOptionPane.showMessageDialog(this, "Sudoku solved :)", "Success",
 				JOptionPane.INFORMATION_MESSAGE);
@@ -782,6 +798,20 @@ public class SudFrame extends JFrame implements Observer {
 	// ----------------------------------------------------------------------------------
 	private void doNotSolved() {
 		JOptionPane.showMessageDialog(this, "Sudoku not solved :)", "Damn",
+				JOptionPane.INFORMATION_MESSAGE);
+		setGridToFinished();
+		sGrid.repaint();
+
+		// --------------------------------
+
+		/*
+		 * //Send data over socket String text = "ClientWon"; out.println(text);
+		 * // textField.setText(new String(""));
+		 */// ----------------------------------
+	}
+	
+	private void doWrongIPAdd() {
+		JOptionPane.showMessageDialog(this, "Wrong Address, Enter Again :)", "Damn",
 				JOptionPane.INFORMATION_MESSAGE);
 		setGridToFinished();
 		sGrid.repaint();

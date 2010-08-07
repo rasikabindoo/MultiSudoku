@@ -32,14 +32,14 @@ public class Grid extends Observable implements Serializable{
     		}
     	}
     	
-    	for(int i=0; i<9; i++)
+   /* 	for(int i=0; i<9; i++)
     	{
         	for(int j=0;j<9;j++)
         	{
         		System.out.println(fields[i][j] + " |");
         	}
         	System.out.println("\n");
-        }
+        }*/
     }
     
     public void setFieldsDefault(boolean fieldsDefault[][])
