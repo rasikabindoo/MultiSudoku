@@ -7,8 +7,12 @@
 
 import java.awt.Color;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import java.io.*;
 import java.net.*;
@@ -42,6 +46,7 @@ class ClientWorker implements Runnable
 	        	    	
 	    	System.out.println("Connected to" + client.getInetAddress() + " on port " + client.getPort() + "from port " + client.getLocalPort() + " of " +  client.getLocalAddress());
 	    	SocketThrdServer.arrayClientSockets[SocketThrdServer.index] = client;
+	    	SocketThrdServer.arrayClientNames[SocketThrdServer.index] = "ClientChaNaavv";
 	    	SocketThrdServer.index = SocketThrdServer.index + 1;
 	    	 ois = new ObjectInputStream(client.getInputStream());
 	         oos = new ObjectOutputStream(client.getOutputStream());
@@ -148,70 +153,119 @@ class ClientWorker implements Runnable
 	}
 }
 
-public class SocketThrdServer extends JFrame
-{
-	//----------------------------------------------------
+public class SocketThrdServer extends JPanel implements ListSelectionListener {
+	
 	protected static GridGenerator gg;
-	
-	  private int diff;
-	  private NumDistributuon nD;
-	//-----------------------------------------------------
-	
-	
-	JLabel label = new JLabel("Text received over socket:");
-	JPanel panel;
-	JTextArea textArea = new JTextArea();
+	private int diff;
+	private NumDistributuon nD;
 	ServerSocket server = null;
-//	public int array [20] ;
-	//int[] dummyArray;
-//	dummyArray[] = new int[10];
-
 	public static Socket[] arrayClientSockets = new Socket[10] ;
+	public static String[] arrayClientNames = new String[10] ;
 	public static int index = 0;
 
-	//arrayClientSockets[] = dummyArray[];
-
-
-	//int[] i = new int[10]; 
-
+	 private JLabel pictureLabel;
+	 private JList list;
+	 private JSplitPane splitPane;
+	 private JFrame frame ;
+/*	 private String[] imageNames = { "Bird", "Cat", "Dog", "Rabbit", "Pig", "dukeWaveRed",
+	        "kathyCosmo", "lainesTongue", "left", "middle", "right", "stickerface"};
+*/		
+	/*JLabel label = new JLabel("Text received over socket:");
+	JPanel panel;
+	JTextArea textArea = new JTextArea();
+*/
+	
 	SocketThrdServer()
 	{ 
-	
-		//-----------------------------------------------------------------------------
-		
-		//Begin Constructor
-		panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		panel.setBackground(Color.white);
-		getContentPane().add(panel);
-		panel.add("North", label);
-		panel.add("Center", textArea);
-		
-		//--------------------------------------------------------------------------
-		  gg = new GridGenerator();
-	        diff = GV.DIFF_NORMAL;
-	        nD = NumDistributuon.evenlyFilled3x3Cubes;
+		gg = new GridGenerator();
+	    diff = GV.DIFF_NORMAL;
+	    nD = NumDistributuon.evenlyFilled3x3Cubes;
+	            
+	    gg.getGrid().resetGrid();
+	    gg.generate(diff, nD);
+	     
+	    frame = new JFrame("SplitPaneDemo");
+	 
+	    
+	    list = new JList(arrayClientNames);
+	    list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+	    list.setSelectedIndex(0);
+	    list.addListSelectionListener(this);
+	         
+        JScrollPane listScrollPane = new JScrollPane(list);
+       
+        pictureLabel = new JLabel();
+        pictureLabel.setFont(pictureLabel.getFont().deriveFont(Font.ITALIC));
+        pictureLabel.setHorizontalAlignment(JLabel.CENTER);
+        
+        JScrollPane pictureScrollPane = new JScrollPane(pictureLabel);
+
+	        //Create a split pane with the two scroll panes in it.
+	        splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+	                                   listScrollPane, pictureScrollPane);
+	        splitPane.setOneTouchExpandable(true);
+	        splitPane.setDividerLocation(150);
+
+	        //Provide minimum sizes for the two components in the split pane.
+	        Dimension minimumSize = new Dimension(100, 50);
+	        listScrollPane.setMinimumSize(minimumSize);
+	        pictureScrollPane.setMinimumSize(minimumSize);
+
+	        //Provide a preferred size for the split pane.
+	        splitPane.setPreferredSize(new Dimension(400, 200));
+	        updateLabel(arrayClientNames[list.getSelectedIndex()]);
 	        
-	        
-	        gg.getGrid().resetGrid();
-	        gg.generate(diff, nD);
-	        
-	       // int [][] gridd = new int[9][9];
-	        
-	      //  gridd = gg.getGrid().getFields();
-	        
-	    /*    for(int i=0; i<9; i++){
-	        	for(int j=0;j<9;j++){
-	        		System.out.println("\t"+gridd[i][j]);
-	        	}
-	        	System.out.println("\n");
-	        }
-	      */  
-	        
-		//--------------------------------------------------------------------------
 	        
 	       
 	} //End Constructor
+	
+	 public void valueChanged(ListSelectionEvent e) {
+	        JList list = (JList)e.getSource();
+	        updateLabel(arrayClientNames[list.getSelectedIndex()]);
+	    }
+	    
+	 protected void updateLabel (String name) {
+	        ImageIcon icon = createImageIcon("images/" + name + ".gif");
+	        pictureLabel.setIcon(icon);
+	        if  (icon != null) {
+	        	pictureLabel.setText(null);
+	        } else {
+	        	pictureLabel.setText("Image not found");
+	        }
+	    }
+	 
+	 //Used by SplitPaneDemo2
+	    public JList getImageList() {
+	        return list;
+	    }
+
+	    public JSplitPane getSplitPane() {
+	        return splitPane;
+	    }
+	    
+	    protected static ImageIcon createImageIcon(String path) {
+	        java.net.URL imgURL = SocketThrdServer.class.getResource(path);
+	         if (imgURL != null) {
+	             return new ImageIcon(imgURL);
+	         } else {
+	             System.err.println("Couldn't find file: " + path);
+	             return null;
+	         }
+	     }
+	    public void createAndShowGUI() {
+
+	        //Create and set up the window.
+	       
+	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        SocketThrdServer splitPaneDemo = new SocketThrdServer();
+	        frame.getContentPane().add(splitPaneDemo.getSplitPane());
+
+	        //Display the window.
+	        frame.pack();
+	        frame.setVisible(true);
+	        frame.repaint();
+	    }
+
 
 	public void listenSocket()	
 	{
@@ -233,6 +287,7 @@ public class SocketThrdServer extends JFrame
 				w = new ClientWorker(server.accept(), gg);
 				Thread t = new Thread(w);
 				t.start();
+				frame.repaint();
 			}
 			catch (IOException e) 
 			{
@@ -261,19 +316,20 @@ public class SocketThrdServer extends JFrame
 	{
 	//--------------------------------------------------------------------------------
 		
-		SocketThrdServer frame = new SocketThrdServer();
-		frame.setTitle("Server Program");
-	        WindowListener l = new WindowAdapter() 
+		SocketThrdServer server = new SocketThrdServer();
+		server.createAndShowGUI();
+	//	frame.setTitle("Server Program");
+	    /*    WindowListener l = new WindowAdapter() 
 		{
 	                public void windowClosing(WindowEvent e) 
 			{
 				System.exit(0);
                 	}
         	};
-	        frame.addWindowListener(l);
+*/	/*        frame.addWindowListener(l);
         	frame.pack();
         	frame.setVisible(true);
-        	frame.listenSocket();
+        */	server.listenSocket();
         	System.out.println("End printf for the mad repo");
         	
         	
