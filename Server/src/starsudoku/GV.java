@@ -36,7 +36,7 @@ public class GV {
     
     public static final Dimension DIM_RA = new Dimension(3, 1);
 
-    public static final String IMG_FOLDER = "/res/img/";
+    public static final String IMG_FOLDER = "/img/";
     
     //SudField Vars
     public final static Font FONT_BIG = new Font("Tahoma", Font.BOLD, 32);

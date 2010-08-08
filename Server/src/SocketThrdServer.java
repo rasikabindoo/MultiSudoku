@@ -134,7 +134,6 @@ class ClientWorker implements Runnable
 
 						}
 					}
-					
 				}
 			}
 			catch (IOException e) 
@@ -177,6 +176,9 @@ public class SocketThrdServer extends JFrame
 
 	SocketThrdServer()
 	{ 
+	
+		//-----------------------------------------------------------------------------
+		
 		//Begin Constructor
 		panel = new JPanel();
 		panel.setLayout(new BorderLayout());
@@ -257,6 +259,8 @@ public class SocketThrdServer extends JFrame
 
 	public static void main(String[] args)
 	{
+	//--------------------------------------------------------------------------------
+		
 		SocketThrdServer frame = new SocketThrdServer();
 		frame.setTitle("Server Program");
 	        WindowListener l = new WindowAdapter() 
@@ -271,6 +275,11 @@ public class SocketThrdServer extends JFrame
         	frame.setVisible(true);
         	frame.listenSocket();
         	System.out.println("End printf for the mad repo");
+        	
+        	
+        	//------------------------------------------------------------------------
+        	 
+		//SudFrame f = new SudFrame();
   	}	
 }
 
