@@ -124,7 +124,7 @@ public class SudFrame extends JFrame implements Observer {
 	private int diff;
 	private NumDistributuon nD;
 	String serverIPAdd;
-	
+	String playerName;
 	public SudFrame() {
 		super(GV.NAME + GV.VERSION);
 
@@ -151,6 +151,7 @@ public class SudFrame extends JFrame implements Observer {
 		setLocation(50, 50);
 		setVisible(true);
 		addWindowListener(wH);
+		getPlayerName();
 		getServerAddress();
 		gg = new GridGenerator();
 		diff = GV.DIFF_NORMAL;
@@ -192,7 +193,8 @@ public class SudFrame extends JFrame implements Observer {
 				// System.out.println("Before reading the object");
 				// date = (Date) ois.readObject();
 				
-
+				oos.writeObject(playerName);
+				
 				System.out.println("Before reading the object");
 
 				gridd = (int[][]) ois.readObject();
@@ -765,17 +767,18 @@ public class SudFrame extends JFrame implements Observer {
 	private void getServerAddress() {
 		serverIPAdd = JOptionPane.showInputDialog(this, "Enter the Server Addresss", "Success",
 				JOptionPane.INFORMATION_MESSAGE);
-	//	setGridToFinished();
 		sGrid.repaint();
 		System.out.println(serverIPAdd);
-		// --------------------------------
-
-		// Send data over socket
-	//	String text = "ClientWon";
-		//out.println(text);
-		// textField.setText(new String(""));
-
-		// ----------------------------------
+		
+	}
+	
+	
+	private void getPlayerName() {
+		playerName = JOptionPane.showInputDialog(this, "Enter Your Name", "MultiSudoku",
+				JOptionPane.INFORMATION_MESSAGE);
+		sGrid.repaint();
+		System.out.println(playerName);
+		
 	}
 	
 	

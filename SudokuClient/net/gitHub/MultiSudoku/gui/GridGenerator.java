@@ -104,6 +104,8 @@ public class GridGenerator implements Serializable
         return true;
     }
     
+    
+    
     private void generateFirst9Moves() {
         boolean[] b = new boolean[9];
         for(int i = 0; i < 9; i++) {

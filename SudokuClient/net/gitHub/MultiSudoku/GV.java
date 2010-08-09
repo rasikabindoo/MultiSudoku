@@ -6,9 +6,9 @@ import java.awt.Font;
 
 public class GV {
     
-    public static final String NAME = "Star SUDOKU ";
+    public static final String NAME = "MultiSudoku ";
     
-    public static final String VERSION = "0.65 Beta";
+    public static final String VERSION = "";
     
     public static final String ABOUT = 
         "<HTML>" + 
