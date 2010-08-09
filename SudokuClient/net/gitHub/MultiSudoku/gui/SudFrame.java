@@ -312,17 +312,17 @@ public class SudFrame extends JFrame implements Observer {
 				sudNew.addActionListener(mH);
 				sudNew.setMnemonic('N');
 
-				sudCreate = new JMenuItem("Create", loadIcon("board1.png"));
+			/*	sudCreate = new JMenuItem("Create", loadIcon("board1.png"));
 				mSudoku.add(sudCreate);
 				sudCreate.addActionListener(mH);
 				sudCreate.setMnemonic('R');
-
+			 
 				sudOpen = new JMenuItem("Open...", loadIcon("open1.png"));
 				mSudoku.add(sudOpen);
 				setCtrlAcceleratorMenu(sudOpen, 'O');
 				sudOpen.addActionListener(mH);
 				sudOpen.setMnemonic('O');
-
+	*/
 				sudSave = new JMenuItem("Save", loadIcon("disk1.png"));
 				mSudoku.add(sudSave);
 				setCtrlAcceleratorMenu(sudSave, 'S');
@@ -348,7 +348,7 @@ public class SudFrame extends JFrame implements Observer {
 				sudHint.addActionListener(mH);
 				sudHint.setMnemonic('H');
 				setCtrlAcceleratorMenu(sudHint, 'H');
-
+			 
 				sudSolve = new JMenuItem("Solve", loadIcon("tick1.png"));
 				mSudoku.add(sudSolve);
 				sudSolve.addActionListener(mH);
@@ -375,7 +375,7 @@ public class SudFrame extends JFrame implements Observer {
 			// Options
 			JMenu mOptions = new JMenu("Options");
 			mOptions.setMnemonic('O');
-			menu.add(mOptions);
+			//menu.add(mOptions);
 			{
 				JLabel jl1 = new JLabel(
 				"<HTML>  &#032&#032<U>Difficulty :</U><HTML>");
@@ -447,6 +447,7 @@ public class SudFrame extends JFrame implements Observer {
 				setCtrlAcceleratorMenu(opPref, 'P');
 				opPref.setMnemonic('P');
 			}
+			
 
 			// Help
 			JMenu mHelp = new JMenu("Help");
@@ -482,24 +483,24 @@ public class SudFrame extends JFrame implements Observer {
 			butUp.add(bUp[0]);
 			bUp[1] = createButUp("board1.png", "board2.png",
 					"Create new Sudoku", butUpDim);
-			butUp.add(bUp[1]);
+		//	butUp.add(bUp[1]);
 			bUp[2] = createButUp("open1.png", "open2.png", "Open Sudoku",
 					butUpDim);
-			butUp.add(bUp[2]);
+		//	butUp.add(bUp[2]);
 			bUp[3] = createButUp("disk1.png", "disk2.png", "Save Sudoku As",
 					butUpDim);
-			butUp.add(bUp[3]);
+		//	butUp.add(bUp[3]);
 
 			// SEPARATOR
-			createButUpSeparator();
+		//	createButUpSeparator();
 
 			bUp[4] = createButUp("redo1.png", "redo2.png", "Redo", butUpDim);
-			butUp.add(bUp[4]);
+		//	butUp.add(bUp[4]);
 			setKeyAcceleratorButton(bUp[4], actButUp, "redo", 'Y',
 					Event.CTRL_MASK);
 
 			bUp[5] = createButUp("undo1.png", "undo2.png", "Undo", butUpDim);
-			butUp.add(bUp[5]);
+		//	butUp.add(bUp[5]);
 			setKeyAcceleratorButton(bUp[5], actButUp, "undo", 'Z',
 					Event.CTRL_MASK);
 
@@ -508,17 +509,17 @@ public class SudFrame extends JFrame implements Observer {
 
 			bUp[6] = createButUp("bin1.png", "bin2.png", "Clear Sudoku",
 					butUpDim);
-			butUp.add(bUp[6]);
+		//	butUp.add(bUp[6]);
 
 			bUp[7] = createButUp("help1.png", "help2.png", "Hint", butUpDim);
-			butUp.add(bUp[7]);
+		//	butUp.add(bUp[7]);
 			System.out.println("***********************************");
 
 			bUp[8] = createButUp("tick1.png", "tick2.png", "Solve", butUpDim);
 			butUp.add(bUp[8]);
 
 			// SEPARATOR
-			createButUpSeparator();
+		//	createButUpSeparator();
 
 			// Difficulty
 			butUp.add(Box.createRigidArea(GV.DIM_RA));
@@ -534,7 +535,7 @@ public class SudFrame extends JFrame implements Observer {
 			butUp.add(Box.createRigidArea(new Dimension(85, 1)));
 			bUp[9] = createButUp("cross1.png", "cross2.png",
 					"<HTML>Close</HTML>", butUpDim);
-			butUp.add(bUp[9]);
+			//butUp.add(bUp[9]);
 			setKeyAcceleratorButton(bUp[9], actButUp, "close", Event.ESCAPE, 0);
 
 		}
@@ -610,6 +611,7 @@ public class SudFrame extends JFrame implements Observer {
 		bUp[4].setEnabled(false);
 		bUp[5].setEnabled(false);
 		bUp[7].setEnabled(false);
+		bUp[8].setEnabled(false);
 	}
 
 	private JButton createButUp(String img, String img2, String toolTip,
@@ -929,6 +931,7 @@ public class SudFrame extends JFrame implements Observer {
 				if (tmp == bUp[0]) {
 					generateNewSud();
 					tmp.setEnabled(false);
+					bUp[8].setEnabled(true);
 				} else if (tmp == bUp[1]) {
 					doCreate();
 				} else if (tmp == bUp[2]) {
@@ -1026,8 +1029,6 @@ public class SudFrame extends JFrame implements Observer {
 				//	generateNewSud();
 					generateNewSud();
 					tmp.setEnabled(false);
-				} else if (tmp == sudOpen) {
-					doLoad();
 				} else if (tmp == sudSaveAs) {
 					doSave();
 				} else if (tmp == opDiffEasy) {

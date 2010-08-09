@@ -50,11 +50,18 @@ class ClientWorker extends Observable implements Runnable
 	    	System.out.println("Connected to" + client.getInetAddress() + " on port " + client.getPort() + "from port " + client.getLocalPort() + " of " +  client.getLocalAddress());
 	    	SocketThrdServer.arrayClientSockets[SocketThrdServer.index] = client;
 	 //   	SocketThrdServer.arrayClientNames[SocketThrdServer.index] = "Cl";
-	    	SocketThrdServer.index = SocketThrdServer.index + 1;
+	    //	SocketThrdServer.index = SocketThrdServer.index + 1;
 	    	System.out.println("*********Index in Constructor  : "+ SocketThrdServer.index);
 	    	 ois = new ObjectInputStream(client.getInputStream());
 	         oos = new ObjectOutputStream(client.getOutputStream());
 	    	
+	    	for(int i=0; i<10; i++)
+	    	{
+	    		if(SocketThrdServer.arrayClientSockets[i]!=null)
+	    		{
+	    			System.out.println("\n" + SocketThrdServer.arrayClientSockets[i].getPort());
+	    		}
+	    	}
 	    	for(int i=0; i<10; i++)
 	    	{
 	    		if(SocketThrdServer.arrayClientSockets[i]!=null)
@@ -88,6 +95,11 @@ class ClientWorker extends Observable implements Runnable
 		{
 			playerName = (String) ois.readObject();
 			System.out.println("PlayerName   :  "+ playerName);
+			
+			SocketThrdServer.arrayClientNames[SocketThrdServer.index] = playerName;
+			SocketThrdServer.index = SocketThrdServer.index + 1;
+			
+			
 			System.out.println("*********Index in Run  : "+ SocketThrdServer.index);
 			SocketThrdServer.arrayClientNames[SocketThrdServer.index] = playerName;
 			System.out.println("Before Writing the object");
@@ -132,6 +144,7 @@ class ClientWorker extends Observable implements Runnable
 				if(line!= null)
 				{
 					clientSignal= false;
+					SocketThrdServer.winner = playerName;
 					System.out.println("******* String line :  " + line);
 					for(int i=0; i<10; i++)
 					{
@@ -179,7 +192,8 @@ public class SocketThrdServer extends JPanel implements ListSelectionListener,Ob
 	public static Socket[] arrayClientSockets = new Socket[10] ;
 	public static String[] arrayClientNames = new String[10] ;
 	public static int index = 0;
-
+	public static String winner;
+	
 	 private JLabel pictureLabel;
 	 private JList list;
 	 private JSplitPane splitPane;
@@ -217,6 +231,7 @@ public class SocketThrdServer extends JPanel implements ListSelectionListener,Ob
         JScrollPane listScrollPane = new JScrollPane(list);
        
         pictureLabel = new JLabel();
+        
         pictureLabel.setFont(pictureLabel.getFont().deriveFont(Font.ITALIC));
         pictureLabel.setHorizontalAlignment(JLabel.CENTER);
         
@@ -237,7 +252,7 @@ public class SocketThrdServer extends JPanel implements ListSelectionListener,Ob
 	        splitPane.setPreferredSize(new Dimension(400, 200));
 	   //     updateLabel(list.getSelectedIndex());
 	        
-	        
+	        updateLabel(1);
 	       
 	} //End Constructor
 	
@@ -253,7 +268,7 @@ public class SocketThrdServer extends JPanel implements ListSelectionListener,Ob
 	    
 	 protected void updateLabel (int selectedIndex) {
 	        //ImageIcon icon = createImageIcon("images/" + name + ".gif");
-	        String userInfo = "IP Address : "+ SocketThrdServer.arrayClientSockets[selectedIndex+1].getPort();
+	        String userInfo = "User 1\n "+ "User2 \n"+"User3 ";
 	        	pictureLabel.setText(userInfo);
 	       
 	    }
@@ -344,7 +359,7 @@ public class SocketThrdServer extends JPanel implements ListSelectionListener,Ob
 	}
 	public void doUserWon()
 	{
-		JOptionPane.showMessageDialog(this, "Sudoku not solved :)", "Damn",
+		JOptionPane.showMessageDialog(this, winner + " won!", "We have a winner!!!",
 				JOptionPane.INFORMATION_MESSAGE);
 		
 		repaint();
