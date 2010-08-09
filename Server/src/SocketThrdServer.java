@@ -30,7 +30,7 @@ class ClientWorker implements Runnable
 	public int [][] gridd;
 	public boolean[][] fieldsDefault;
 	GridGenerator gg;
-	
+	private String playerName;
 	ClientWorker(Socket client, GridGenerator gg) 
 	{	
 	    try
@@ -46,8 +46,9 @@ class ClientWorker implements Runnable
 	        	    	
 	    	System.out.println("Connected to" + client.getInetAddress() + " on port " + client.getPort() + "from port " + client.getLocalPort() + " of " +  client.getLocalAddress());
 	    	SocketThrdServer.arrayClientSockets[SocketThrdServer.index] = client;
-	    	SocketThrdServer.arrayClientNames[SocketThrdServer.index] = "ClientChaNaavv";
+	 //   	SocketThrdServer.arrayClientNames[SocketThrdServer.index] = "Cl";
 	    	SocketThrdServer.index = SocketThrdServer.index + 1;
+	    	System.out.println("*********Index in Constructor  : "+ SocketThrdServer.index);
 	    	 ois = new ObjectInputStream(client.getInputStream());
 	         oos = new ObjectOutputStream(client.getOutputStream());
 	    	
@@ -82,6 +83,10 @@ class ClientWorker implements Runnable
 		
 		try 
 		{
+			playerName = (String) ois.readObject();
+			System.out.println("PlayerName   :  "+ playerName);
+			System.out.println("*********Index in Run  : "+ SocketThrdServer.index);
+			SocketThrdServer.arrayClientNames[SocketThrdServer.index] = playerName;
 			System.out.println("Before Writing the object");
 			oos.writeObject(gridd);
 			oos.writeObject(fieldsDefault);
@@ -188,6 +193,11 @@ public class SocketThrdServer extends JPanel implements ListSelectionListener {
 	 
 	    
 	    list = new JList(arrayClientNames);
+	    
+	    System.out.println(list);
+	    
+	    
+	    list.setFont(list.getFont().deriveFont(Font.ITALIC));
 	    list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	    list.setSelectedIndex(0);
 	    list.addListSelectionListener(this);
@@ -213,25 +223,27 @@ public class SocketThrdServer extends JPanel implements ListSelectionListener {
 
 	        //Provide a preferred size for the split pane.
 	        splitPane.setPreferredSize(new Dimension(400, 200));
-	        updateLabel(arrayClientNames[list.getSelectedIndex()]);
+	   //     updateLabel(list.getSelectedIndex());
 	        
 	        
 	       
 	} //End Constructor
 	
 	 public void valueChanged(ListSelectionEvent e) {
-	        JList list = (JList)e.getSource();
+	  /*      JList list = (JList)e.getSource();
 	        updateLabel(arrayClientNames[list.getSelectedIndex()]);
-	    }
+	   */
+		  System.out.println("*************************The list is :"+ list);
+		 int selectedIndex = list.getSelectedIndex();
+		 updateLabel(selectedIndex);
+		 
+	 }
 	    
-	 protected void updateLabel (String name) {
-	        ImageIcon icon = createImageIcon("images/" + name + ".gif");
-	        pictureLabel.setIcon(icon);
-	        if  (icon != null) {
-	        	pictureLabel.setText(null);
-	        } else {
-	        	pictureLabel.setText("Image not found");
-	        }
+	 protected void updateLabel (int selectedIndex) {
+	        //ImageIcon icon = createImageIcon("images/" + name + ".gif");
+	        String userInfo = "IP Address : "+ SocketThrdServer.arrayClientSockets[selectedIndex+1].getPort();
+	        	pictureLabel.setText(userInfo);
+	       
 	    }
 	 
 	 //Used by SplitPaneDemo2
