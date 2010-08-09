@@ -17,11 +17,13 @@ import javax.swing.event.ListSelectionListener;
 import java.io.*;
 import java.net.*;
 import java.util.Date;
+import java.util.Observable;
+import java.util.Observer;
 
 import starsudoku. *;
 import starsudoku.GV.NumDistributuon;
 
-class ClientWorker implements Runnable 
+class ClientWorker extends Observable implements Runnable 
 {
 	
 	private Socket client;
@@ -31,12 +33,13 @@ class ClientWorker implements Runnable
 	public boolean[][] fieldsDefault;
 	GridGenerator gg;
 	private String playerName;
-	ClientWorker(Socket client, GridGenerator gg) 
+	ClientWorker(Socket client, GridGenerator gg, SocketThrdServer server) 
 	{	
 	    try
 	    {   	
 	    	this.client = client;
 	    	this.gg = gg;
+	    	this.addObserver(server);
 	    
 	    	gridd = new int[9][9];
 	    	gridd = gg.getGrid().getFields();
@@ -148,8 +151,9 @@ class ClientWorker implements Runnable
 									JOptionPane.INFORMATION_MESSAGE);
 							
 							sGrid.repaint();
-*/
-
+*/	
+							setChanged();
+							notifyObservers();
 						}
 					}
 				}
@@ -166,7 +170,7 @@ class ClientWorker implements Runnable
 	}
 }
 
-public class SocketThrdServer extends JPanel implements ListSelectionListener {
+public class SocketThrdServer extends JPanel implements ListSelectionListener,Observer {
 	
 	protected static GridGenerator gg;
 	private int diff;
@@ -304,7 +308,8 @@ public class SocketThrdServer extends JPanel implements ListSelectionListener {
 			try
 			{
 			//	System.out.println("Inside WHILE");
-				w = new ClientWorker(server.accept(), gg);
+				w = new ClientWorker(server.accept(), gg, this);
+			//	w.addObserver(this);
 				Thread t = new Thread(w);
 				t.start();
 				frame.repaint();
@@ -332,6 +337,19 @@ public class SocketThrdServer extends JPanel implements ListSelectionListener {
 		}
 	}
 
+	
+	public void update(Observable obs, Object x) {
+		System.out.println("*************Observable cha notification");
+		doUserWon();
+	}
+	public void doUserWon()
+	{
+		JOptionPane.showMessageDialog(this, "Sudoku not solved :)", "Damn",
+				JOptionPane.INFORMATION_MESSAGE);
+		
+		repaint();
+	}
+	
 	public static void main(String[] args)
 	{
 	//--------------------------------------------------------------------------------

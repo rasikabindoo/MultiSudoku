@@ -946,14 +946,14 @@ public class SudFrame extends JFrame implements Observer {
 					System.out.println(b);
 					// if(!checkIfSolved())
 
-					if (!checkIfSolved()) {
+				/*	if (!checkIfSolved()) {
 						System.out.println("Inside if");
 						doNotSolved();
 					} else {
 						doSolved();
 					}
 					
-					// doSolved();
+			*/		 doSolved();
 
 					// -----------------------------------------------
 				} else if (tmp == bUp[9]) {
