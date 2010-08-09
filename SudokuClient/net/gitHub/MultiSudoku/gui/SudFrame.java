@@ -322,7 +322,7 @@ public class SudFrame extends JFrame implements Observer {
 				setCtrlAcceleratorMenu(sudOpen, 'O');
 				sudOpen.addActionListener(mH);
 				sudOpen.setMnemonic('O');
-	*/
+	
 				sudSave = new JMenuItem("Save", loadIcon("disk1.png"));
 				mSudoku.add(sudSave);
 				setCtrlAcceleratorMenu(sudSave, 'S');
@@ -348,22 +348,22 @@ public class SudFrame extends JFrame implements Observer {
 				sudHint.addActionListener(mH);
 				sudHint.setMnemonic('H');
 				setCtrlAcceleratorMenu(sudHint, 'H');
-			 
-				sudSolve = new JMenuItem("Solve", loadIcon("tick1.png"));
+*/			 
+				sudSolve = new JMenuItem("Submit", loadIcon("tick1.png"));
 				mSudoku.add(sudSolve);
 				sudSolve.addActionListener(mH);
 				sudSolve.setMnemonic('L');
 
 				mSudoku.addSeparator();
 
-				sudExport = new JMenuItem("Export...", loadIcon("export1.png"));
+			/*	sudExport = new JMenuItem("Export...", loadIcon("export1.png"));
 				mSudoku.add(sudExport);
 				sudExport.addActionListener(mH);
 				setCtrlAcceleratorMenu(sudExport, 'T');
 				sudExport.setMnemonic('T');
 
 				mSudoku.addSeparator();
-
+*/
 				sudExit = new JMenuItem("Exit", loadIcon("cross1.png"));
 				mSudoku.add(sudExit);
 				setKeyAcceleratorMenu(sudExit, Event.ESCAPE, 0);
@@ -602,10 +602,10 @@ public class SudFrame extends JFrame implements Observer {
 	}
 
 	private void setNotEnabledItems() {
-		sudSave.setEnabled(false);
-		sudHint.setEnabled(false);
-		sudExport.setEnabled(false);
-
+		//sudSave.setEnabled(false);
+		//sudHint.setEnabled(false);
+		//sudExport.setEnabled(false);
+		sudSolve.setEnabled(false);
 		opPref.setEnabled(false);
 
 		bUp[4].setEnabled(false);
@@ -949,14 +949,16 @@ public class SudFrame extends JFrame implements Observer {
 					System.out.println(b);
 					// if(!checkIfSolved())
 
-				/*	if (!checkIfSolved()) {
+					if (!checkIfSolved()) {
 						System.out.println("Inside if");
 						doNotSolved();
+						bUp[8].setEnabled(false);
 					} else {
 						doSolved();
+						bUp[8].setEnabled(false);
 					}
 					
-			*/		 doSolved();
+			//	 doSolved();
 
 					// -----------------------------------------------
 				} else if (tmp == bUp[9]) {
@@ -1029,8 +1031,6 @@ public class SudFrame extends JFrame implements Observer {
 				//	generateNewSud();
 					generateNewSud();
 					tmp.setEnabled(false);
-				} else if (tmp == sudSaveAs) {
-					doSave();
 				} else if (tmp == opDiffEasy) {
 					diff = GV.DIFF_EASY;
 				} else if (tmp == opDiffNormal) {
@@ -1067,9 +1067,7 @@ public class SudFrame extends JFrame implements Observer {
 					
 				} else if (tmp == sudCreate) {
 					doCreate();
-				} else if (tmp == sudClear) {
-					doClear();
-				}
+				} 
 			} catch (ClassCastException ex) {
 				ex.printStackTrace();
 			}
