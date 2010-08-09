@@ -141,6 +141,14 @@ class ClientWorker implements Runnable
 //							System.out.println("I is " + i);
 							System.out.println("I is " + i);
 							out[i].println(line);
+							
+							
+							
+					/*		JOptionPane.showMessageDialog(this, "Sudoku not solved :)", "Damn",
+									JOptionPane.INFORMATION_MESSAGE);
+							
+							sGrid.repaint();
+*/
 
 						}
 					}
