@@ -49,7 +49,7 @@ class ClientWorker extends Observable implements Runnable
 	        	    	
 	    	System.out.println("Connected to" + client.getInetAddress() + " on port " + client.getPort() + "from port " + client.getLocalPort() + " of " +  client.getLocalAddress());
 	    	SocketThrdServer.arrayClientSockets[SocketThrdServer.index] = client;
-	 //   	SocketThrdServer.arrayClientNames[SocketThrdServer.index] = "Cl";
+	    	//SocketThrdServer.arrayClientNames[SocketThrdServer.index] = ;
 	    //	SocketThrdServer.index = SocketThrdServer.index + 1;
 	    	System.out.println("*********Index in Constructor  : "+ SocketThrdServer.index);
 	    	 ois = new ObjectInputStream(client.getInputStream());
@@ -98,7 +98,10 @@ class ClientWorker extends Observable implements Runnable
 			
 			SocketThrdServer.arrayClientNames[SocketThrdServer.index] = playerName;
 			SocketThrdServer.index = SocketThrdServer.index + 1;
-			
+			for(int i=0;i<10;i++)
+			{
+				System.out.println("Client name : " +SocketThrdServer.arrayClientNames[i]+"\n");
+			}
 			
 			System.out.println("*********Index in Run  : "+ SocketThrdServer.index);
 			SocketThrdServer.arrayClientNames[SocketThrdServer.index] = playerName;
@@ -183,7 +186,7 @@ class ClientWorker extends Observable implements Runnable
 	}
 }
 
-public class SocketThrdServer extends JPanel implements ListSelectionListener,Observer {
+public class SocketThrdServer extends JPanel implements Observer {
 	
 	protected static GridGenerator gg;
 	private int diff;
@@ -198,6 +201,9 @@ public class SocketThrdServer extends JPanel implements ListSelectionListener,Ob
 	 private JList list;
 	 private JSplitPane splitPane;
 	 private JFrame frame ;
+	 public JTextArea textArea;
+	 JScrollPane scrollPane;
+	 private final static String newline = "\n";
 /*	 private String[] imageNames = { "Bird", "Cat", "Dog", "Rabbit", "Pig", "dukeWaveRed",
 	        "kathyCosmo", "lainesTongue", "left", "middle", "right", "stickerface"};
 */		
@@ -216,20 +222,22 @@ public class SocketThrdServer extends JPanel implements ListSelectionListener,Ob
 	    gg.generate(diff, nD);
 	     
 	    frame = new JFrame("SplitPaneDemo");
-	 
+	 //   frame.set
 	    
-	    list = new JList(arrayClientNames);
+	  /*  list = new JList(arrayClientNames);
 	    
-	    System.out.println(list);
+	  //  System.out.println(list);
 	    
 	    
-	    list.setFont(list.getFont().deriveFont(Font.ITALIC));
+	  //  list.setFont(list.getFont().deriveFont(Font.ITALIC));
 	    list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	    list.setSelectedIndex(0);
 	    list.addListSelectionListener(this);
-	         
+	    //list.setFont();      
         JScrollPane listScrollPane = new JScrollPane(list);
-       
+        
+        listScrollPane.setFont(fontt);
+               
         pictureLabel = new JLabel();
         
         pictureLabel.setFont(pictureLabel.getFont().deriveFont(Font.ITALIC));
@@ -244,7 +252,7 @@ public class SocketThrdServer extends JPanel implements ListSelectionListener,Ob
 	        splitPane.setDividerLocation(150);
 
 	        //Provide minimum sizes for the two components in the split pane.
-	        Dimension minimumSize = new Dimension(100, 50);
+	        Dimension minimumSize = new Dimension(400, 100);
 	        listScrollPane.setMinimumSize(minimumSize);
 	        pictureScrollPane.setMinimumSize(minimumSize);
 
@@ -253,51 +261,42 @@ public class SocketThrdServer extends JPanel implements ListSelectionListener,Ob
 	   //     updateLabel(list.getSelectedIndex());
 	        
 	        updateLabel(1);
-	       
+	
+       
+    */
+	    //---------------Start of the text code-----------------------------------
+	    
+	   
+	    textArea = new JTextArea(5, 20);
+        textArea.setEditable(false);
+        String temp = null;
+        
+        
+        
+        for (int i=0; i<10;i++)
+        {
+        	temp = arrayClientNames[i];
+        	textArea.append(temp + newline);
+        }
+        textArea.append(temp + newline);
+        
+        scrollPane = new JScrollPane(textArea);
+	    
+        
 	} //End Constructor
 	
-	 public void valueChanged(ListSelectionEvent e) {
-	  /*      JList list = (JList)e.getSource();
-	        updateLabel(arrayClientNames[list.getSelectedIndex()]);
-	   */
-		  System.out.println("*************************The list is :"+ list);
-		 int selectedIndex = list.getSelectedIndex();
-		 updateLabel(selectedIndex);
-		 
-	 }
+	  
+	
+	   
 	    
-	 protected void updateLabel (int selectedIndex) {
-	        //ImageIcon icon = createImageIcon("images/" + name + ".gif");
-	        String userInfo = "User 1\n "+ "User2 \n"+"User3 ";
-	        	pictureLabel.setText(userInfo);
-	       
-	    }
-	 
-	 //Used by SplitPaneDemo2
-	    public JList getImageList() {
-	        return list;
-	    }
-
-	    public JSplitPane getSplitPane() {
-	        return splitPane;
-	    }
-	    
-	    protected static ImageIcon createImageIcon(String path) {
-	        java.net.URL imgURL = SocketThrdServer.class.getResource(path);
-	         if (imgURL != null) {
-	             return new ImageIcon(imgURL);
-	         } else {
-	             System.err.println("Couldn't find file: " + path);
-	             return null;
-	         }
-	     }
 	    public void createAndShowGUI() {
 
 	        //Create and set up the window.
 	       
 	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        SocketThrdServer splitPaneDemo = new SocketThrdServer();
-	        frame.getContentPane().add(splitPaneDemo.getSplitPane());
+	     //   scrollPane.add(textField);
+	        frame.getContentPane().add(scrollPane);
 
 	        //Display the window.
 	        frame.pack();
