@@ -272,7 +272,7 @@ public class SocketThrdServer extends JPanel implements Observer {
 	    //---------------Start of the text code-----------------------------------
 	    
 	   
-	    textArea = new JTextArea(5, 20);
+	    textArea = new JTextArea(20,50);
         textArea.setEditable(false);
         textArea.setBackground(color);  
         textArea.setFont(font);
@@ -305,8 +305,10 @@ public class SocketThrdServer extends JPanel implements Observer {
 	        SocketThrdServer splitPaneDemo = new SocketThrdServer();
 	     //   scrollPane.add(textField);
 	        frame.getContentPane().add(scrollPane);
-	        Dimension minimumSize = new Dimension(700, 400);
+	        Dimension minimumSize = new Dimension(500, 200);
 	        frame.setSize(minimumSize);
+	        
+	       // frame.setBounds(150, 150, 1000, 500);
 
 	        //Display the window.
 	        frame.pack();

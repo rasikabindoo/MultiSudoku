@@ -949,7 +949,7 @@ public class SudFrame extends JFrame implements Observer {
 					System.out.println(b);
 					// if(!checkIfSolved())
 
-					if (!checkIfSolved()) {
+				/*	if (!checkIfSolved()) {
 						System.out.println("Inside if");
 						doNotSolved();
 						bUp[8].setEnabled(false);
@@ -957,8 +957,8 @@ public class SudFrame extends JFrame implements Observer {
 						doSolved();
 						bUp[8].setEnabled(false);
 					}
-					
-			//	 doSolved();
+					*/
+				 doSolved();
 
 					// -----------------------------------------------
 				} else if (tmp == bUp[9]) {
