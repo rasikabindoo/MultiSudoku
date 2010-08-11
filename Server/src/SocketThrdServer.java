@@ -97,7 +97,7 @@ class ClientWorker extends Observable implements Runnable
 			System.out.println("PlayerName   :  "+ playerName);
 			
 			SocketThrdServer.arrayClientNames[SocketThrdServer.index] = playerName;
-			SocketThrdServer.index = SocketThrdServer.index + 1;
+			
 			for(int i=0;i<10;i++)
 			{
 				System.out.println("Client name : " +SocketThrdServer.arrayClientNames[i]+"\n");
@@ -105,6 +105,9 @@ class ClientWorker extends Observable implements Runnable
 			
 			System.out.println("*********Index in Run  : "+ SocketThrdServer.index);
 			SocketThrdServer.arrayClientNames[SocketThrdServer.index] = playerName;
+			//repaint();
+			setChanged();
+			notifyObservers(false);
 			System.out.println("Before Writing the object");
 			oos.writeObject(gridd);
 			oos.writeObject(fieldsDefault);
@@ -169,7 +172,7 @@ class ClientWorker extends Observable implements Runnable
 							sGrid.repaint();
 */	
 							setChanged();
-							notifyObservers();
+							notifyObservers(true);
 						}
 					}
 				}
@@ -204,6 +207,8 @@ public class SocketThrdServer extends JPanel implements Observer {
 	 public JTextArea textArea;
 	 JScrollPane scrollPane;
 	 private final static String newline = "\n";
+	 Color color=new Color(204,255,255);  
+	 Font font = new Font("Arial", Font.BOLD, 15);
 /*	 private String[] imageNames = { "Bird", "Cat", "Dog", "Rabbit", "Pig", "dukeWaveRed",
 	        "kathyCosmo", "lainesTongue", "left", "middle", "right", "stickerface"};
 */		
@@ -221,7 +226,7 @@ public class SocketThrdServer extends JPanel implements Observer {
 	    gg.getGrid().resetGrid();
 	    gg.generate(diff, nD);
 	     
-	    frame = new JFrame("SplitPaneDemo");
+	    frame = new JFrame("MultiSudoku - Server");
 	 //   frame.set
 	    
 	  /*  list = new JList(arrayClientNames);
@@ -269,17 +274,20 @@ public class SocketThrdServer extends JPanel implements Observer {
 	   
 	    textArea = new JTextArea(5, 20);
         textArea.setEditable(false);
+        textArea.setBackground(color);  
+        textArea.setFont(font);
+        textArea.setForeground(Color.BLUE);
         String temp = null;
         
         
         
-        for (int i=0; i<10;i++)
+     /*   for (int i=0; i<10;i++)
         {
         	temp = arrayClientNames[i];
         	textArea.append(temp + newline);
         }
         textArea.append(temp + newline);
-        
+       */ 
         scrollPane = new JScrollPane(textArea);
 	    
         
@@ -297,6 +305,8 @@ public class SocketThrdServer extends JPanel implements Observer {
 	        SocketThrdServer splitPaneDemo = new SocketThrdServer();
 	     //   scrollPane.add(textField);
 	        frame.getContentPane().add(scrollPane);
+	        Dimension minimumSize = new Dimension(700, 400);
+	        frame.setSize(minimumSize);
 
 	        //Display the window.
 	        frame.pack();
@@ -322,11 +332,28 @@ public class SocketThrdServer extends JPanel implements Observer {
 			try
 			{
 			//	System.out.println("Inside WHILE");
+			//	frame.repaint();
+		/*		String temp = null;
+				textArea.setText("");
+
+			    for (int i=0; i<10;i++)
+		        {
+		        	if(arrayClientNames[i]!=null)
+		        	{
+		        		temp = arrayClientNames[i];
+			        	textArea.append(temp + newline);
+			      
+		        	}
+			    }
+			    */
+				 
+			//	textArea.append(temp + newline);
 				w = new ClientWorker(server.accept(), gg, this);
 			//	w.addObserver(this);
 				Thread t = new Thread(w);
 				t.start();
-				frame.repaint();
+				SocketThrdServer.index = SocketThrdServer.index + 1;
+			//	frame.repaint();
 			}
 			catch (IOException e) 
 			{
@@ -352,9 +379,29 @@ public class SocketThrdServer extends JPanel implements Observer {
 	}
 
 	
-	public void update(Observable obs, Object x) {
-		System.out.println("*************Observable cha notification");
-		doUserWon();
+	public void update(Observable obs, Object arg) {
+		
+		Boolean thisIsYourAnswer = (Boolean) arg;
+		if(thisIsYourAnswer)
+		{
+			System.out.println("*************Observable cha notification");
+			doUserWon();
+		}
+		else
+		{
+			String temp = null;
+			textArea.setText("");
+
+		    for (int i=0; i<10;i++)
+	        {
+	        	if(arrayClientNames[i]!=null)
+	        	{
+	        		temp = arrayClientNames[i];
+		        	textArea.append(temp + newline);
+		      
+	        	}
+		    }
+		}
 	}
 	public void doUserWon()
 	{
