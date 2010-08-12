@@ -162,7 +162,7 @@ class ClientWorker extends Observable implements Runnable
 							System.out.println("Port is " + SocketThrdServer.arrayClientSockets[i].getPort());
 //							System.out.println("I is " + i);
 							System.out.println("I is " + i);
-							out[i].println(line);
+							out[i].println(SocketThrdServer.winner);
 							
 							
 							
