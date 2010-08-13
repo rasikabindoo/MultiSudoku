@@ -28,10 +28,7 @@
 
     <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
     <jar jarfile="${dist}/MyProject-${DSTAMP}.jar" basedir="${build}"/>
-  	<manifest>
-  	                <attribute name="Main-Class" value="${src}/SocketThrdServer.java"/>
-  	            </manifest>
-  
+  	  
   </target>
 
   <target name="clean"
