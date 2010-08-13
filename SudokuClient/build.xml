@@ -1,10 +1,10 @@
 
-<project name="Server" default="dist" basedir=".">
+<project name="SudokuClient" default="dist" basedir=".">
     <description>
         simple example build file
     </description>
   <!-- set global properties for this build -->
-  <property name="src" location="src"/>
+  <property name="src" location="net/gitHub/MultiSudoku"/>
   <property name="build" location="build"/>
   <property name="dist"  location="dist"/>
 	<property name="base"  location="."/>
@@ -29,7 +29,7 @@
     <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
     <jar jarfile="${dist}/MyProject-${DSTAMP}.jar" basedir="${build}">
   		<manifest>
-  	       <attribute name="Main-Class" value="SocketThrdServer"/>
+  	       <attribute name="Main-Class" value="net/gitHub/MultiSudoku/Main"/>
   	    </manifest>
     </jar>
     	
