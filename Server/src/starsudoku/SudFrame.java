@@ -1,6 +1,6 @@
 
 package starsudoku;
-import img.*;
+//import img.*;
 import java.awt.BorderLayout;
 
 import java.awt.Color;

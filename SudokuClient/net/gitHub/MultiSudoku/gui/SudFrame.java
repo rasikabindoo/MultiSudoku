@@ -245,7 +245,7 @@ public class SudFrame extends JFrame implements Observer {
 		{
 			try 
 			{
-				String line = in.readLine();
+				String winnerName = in.readLine();
 				/*System.out.println("Line is  :  "+ line);
 				System.out
 				.println("Connected to" + socket.getInetAddress()
@@ -254,10 +254,10 @@ public class SudFrame extends JFrame implements Observer {
 						+ socket.getLocalAddress());
 						*/
 				//if (line.length() > 0) 
-				if (line != null)
+				if (winnerName != null)
 				{
-					System.out.println("Someone else won!!!");
-					doOtherPersonWon();
+					System.out.println(winnerName);
+					doOtherPersonWon(winnerName);
 					i = 0;
 				}
 
@@ -832,8 +832,9 @@ public class SudFrame extends JFrame implements Observer {
 	// -----------------------------------------------------------------------------------
 
 	// ----------------------------------------------------------------------------------
-	private void doOtherPersonWon() {
-		JOptionPane.showMessageDialog(this, "Somebody else won!! :)", "Oops",
+	private void doOtherPersonWon(String winnerName) {
+		String winnerMsg = winnerName + " Won!!!";
+		JOptionPane.showMessageDialog(this, winnerMsg, "Oops",
 				JOptionPane.INFORMATION_MESSAGE);
 		setGridToFinished();
 		sGrid.repaint();
