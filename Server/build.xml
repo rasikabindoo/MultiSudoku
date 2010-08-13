@@ -27,7 +27,7 @@
     <mkdir dir="${dist}"/>
 
     <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
-    <jar jarfile="${dist}/MyProject-${DSTAMP}.jar" basedir="${build}">
+    <jar jarfile="${dist}/Server.jar" basedir="${build}">
   		<manifest>
   	       <attribute name="Main-Class" value="SocketThrdServer"/>
   	    </manifest>
