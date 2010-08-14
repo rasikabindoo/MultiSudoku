@@ -15,7 +15,7 @@ What is MultiSudoku all about?
 MultiSudoku has a server to which the clients connect. All the clients get the same puzzle from the server. Whenever a player solves the Sudoku puzzle correctly a signal is sent to the server. The server immidiately sends a signal to the remaining clients indicating that a player has won.
 The winner name is displayed on the server UI as well as on the other players’ UI.
 
-In Case of any issues you can mail me at : mailto:rasika@pdx.edu
+In Case of any issues you can mail me at : rasika@pdx.edu
 
 ### Build Instructions ###
 
