@@ -1,5 +1,22 @@
 # MultiSudoku #
 
+
+
+
+This software is developed to conduct Sudoku competitions.
+
+Purpose:
+This project is aimed building a software that can be used to conduct Sudoku competitions.
+
+What is a Sudoku?
+Sudoku is a logic-based, number-placement puzzle. The objective is to fill a 9×9 grid with digits so that each column, each row, and each of the nine 3×3 sub-grids that compose the grid (also called “boxes”, “blocks”, “regions”, or “sub-squares”) contains all of the digits from 1 to 9. The puzzle setter provides a partially completed grid, which typically has a unique solution.
+
+What is MultiSudoku all about?
+MultiSudoku has a server to which the clients connect. All the clients get the same puzzle from the server. Whenever a player solves the Sudoku puzzle correctly a signal is sent to the server. The server immidiately sends a signal to the remaining clients indicating that a player has won.
+The winner name is displayed on the server UI as well as on the other players’ UI.
+
+
+
 ### Build Instructions ###
 
 MultiSudoku works on Windows ,linux and Mac . 
