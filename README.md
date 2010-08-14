@@ -2,7 +2,9 @@
 
 ### Build Instructions ###
 
-MultiSudoku has only been tested on Ubuntu. the following steps will get you up and running:
+MultiSudoku works on Windows ,linux and Mac . 
+The following are the build instructions for linux :
+
 Remember to run the Server first and then the client 
 
   1. Clone the git repository
