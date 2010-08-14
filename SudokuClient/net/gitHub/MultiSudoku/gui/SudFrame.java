@@ -1,5 +1,22 @@
+/*
+ This file is part of Multisudoku.
+
+    Multisudoku is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Multisudoku is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Multisudoku.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 package net.gitHub.MultiSudoku.gui;
+
 
 import java.awt.BorderLayout;
 
@@ -181,12 +198,12 @@ public class SudFrame extends JFrame implements Observer {
 			{
 				socket = new Socket(serverIPAdd, 12340);
 				flag = false;
-				System.out
+			/*	System.out
 				.println("Connected to" + socket.getInetAddress()
 						+ " on port " + socket.getPort() + "from port "
 						+ socket.getLocalPort() + " of "
 						+ socket.getLocalAddress());
-				
+			*/	
 				oos = new ObjectOutputStream(socket.getOutputStream());
 				ois = new ObjectInputStream(socket.getInputStream());
 				// read an object from the server
@@ -195,22 +212,22 @@ public class SudFrame extends JFrame implements Observer {
 				
 				oos.writeObject(playerName);
 				
-				System.out.println("Before reading the object");
+			//	System.out.println("Before reading the object");
 
 				gridd = (int[][]) ois.readObject();
 				fieldsDefault = (boolean[][]) ois.readObject();
-				System.out.println("After reading the object");
+			//	System.out.println("After reading the object");
 				gg.getGrid().resetGrid();
 				gg.getGrid().setFieldss(gridd);
 				// System.out.print("The date is: " + date);
-				System.out.println("Blah Blah");
+			//	System.out.println("Blah Blah");
 				
 				//	oos.close();
 				//	ois.close();
 			}
 			catch(Exception e) 
 			{
-				System.out.println("*************************************");
+			//	System.out.println("*************************************");
 				//flag= false;
 				doWrongIPAdd();
 				getServerAddress();
@@ -256,7 +273,7 @@ public class SudFrame extends JFrame implements Observer {
 				//if (line.length() > 0) 
 				if (winnerName != null)
 				{
-					System.out.println(winnerName);
+			//		System.out.println(winnerName);
 					doOtherPersonWon(winnerName);
 					i = 0;
 				}

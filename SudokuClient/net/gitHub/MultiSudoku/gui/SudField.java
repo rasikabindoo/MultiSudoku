@@ -1,4 +1,8 @@
-
+/**
+ * 
+ * 
+ * @author Nikolay G. GEorgiev
+ */
 package net.gitHub.MultiSudoku.gui;
 
 import java.awt.Color;

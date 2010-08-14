@@ -14,9 +14,9 @@ public class GV {
         "<HTML>" + 
         "<B>"+NAME+"</B> ver. "+VERSION+"</BR>" + 
         
-        "<P><BR><I>Author: </I><FONT COLOR=\"#0000ff\">Nikolay G. Georgiev</FONT></P>" + 
-        "<P><BR><I>Bug Report: </I><A HREF=\"mailto:ngg@users.sourceforge.net\">" +
-        "ngg@users.sourceforge.net</A></P>" +   
+        "<P><BR><I>Author: </I><FONT COLOR=\"#0000ff\">Rasika Bindoo</FONT></P>" + 
+        "<P><BR><I>Contact: </I><A HREF=\"mailto:rasika@pdx.edu\">" +
+        "rasika@pdx.edu</A></P>" +   
         "<P><BR></P>This program is released under the GNU General Public License.<BR> " +
         "A copy of this is included with your copy of "+NAME+" and can also be found at<BR> " +
         "<A HREF=\"http://www.opensource.org/licenses/gpl-license.php\">" +
