@@ -7,11 +7,11 @@ The following are the build instructions for linux :
 
 Remember to run the Server first and then the client 
 
-  * Clone the git repository
+   Clone the git repository
 
 	> git clone git@github.com:rasikabindoo/MultiSudoku.git 
 
-  * Build the Server
+   Build the Server
 
 	> cd MultiSudoku
 	> cd Server
@@ -20,7 +20,7 @@ Remember to run the Server first and then the client
 	> cd dist
 	> java -jar Server.jar
 
-  * Build the Client
+   Build the Client
 
 	> cd MultiSudoku
 	> cd Sudokuclient
