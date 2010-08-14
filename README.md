@@ -3,6 +3,7 @@
 ### Build Instructions ###
 
 MultiSudoku has only been tested on Ubuntu. the following steps will get you up and running:
+Remember to run the Server first and then the client 
 
   1. Clone the git repository
 
@@ -26,6 +27,9 @@ MultiSudoku has only been tested on Ubuntu. the following steps will get you up 
 	> cd dist
 	> java -jar SudokuClient.jar
 
+
+All you need to know is the IP address of the system in which the server is running.
+You can connect all the clients to the server and start playing!!!
 
 
 GNU General Public License,
